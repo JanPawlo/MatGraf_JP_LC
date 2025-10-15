@@ -1,11 +1,11 @@
-
+import math
 
 
 
 class Vector:
     
-    def __init___(self, x:float, y:float, z:float):
-        self.x = x;
+    def __init__(self, x:float, y:float, z:float):
+        self.x = x
         self.y = y
         self.z = z
         
@@ -17,4 +17,42 @@ class Vector:
         z = self.z + other.z
         return Vector(x, y, z)
     
+    def __sub__(self, other:"Vector"):
+        if (not isinstance(other, Vector)):
+            raise ValueError("Non-vector subtracted")
+        x = self.x - other.x
+        y = self.y - other.y
+        z = self.z - other.z
+        return Vector(x, y, z)
     
+    def __mul__(self, scalar:float):
+        if (not isinstance(scalar, float)):
+            raise ValueError("Non-scalar multiplied!")
+        x = self.x * scalar
+        y = self.y * scalar
+        z = self.z * scalar
+    
+        return Vector(x, y, z)
+    
+    def __div__(self, scalar:float):
+        if (not isinstance(scalar, float)):
+            raise ValueError("Non-scalar divided!")
+        x = self.x / scalar
+        y = self.y / scalar
+        z = self.z / scalar
+    
+        return Vector(x, y, z)
+    
+    def length(self):
+        return math.sqrt((self.x*self.x)
+                         + (self.y*self.y)
+                         + (self.z*self.z))
+    
+    def normalise(self):
+        length = self.length()
+        if (length == 0):
+            raise ValueError("Vector lenght is 0")
+        return self / length
+    
+    def __str__(self):
+        return f"[{self.x}, {self.y}, {self.z}]"

@@ -26,7 +26,7 @@ class Vector:
         return Vector(x, y, z)
     
     def __mul__(self, scalar:float):
-        if (not isinstance(scalar, float)):
+        if not (isinstance(scalar, float) or isinstance(scalar, int)):
             raise ValueError("Non-scalar multiplied!")
         x = self.x * scalar
         y = self.y * scalar
@@ -34,8 +34,8 @@ class Vector:
     
         return Vector(x, y, z)
     
-    def __div__(self, scalar:float):
-        if (not isinstance(scalar, float)):
+    def __truediv__(self, scalar:float):
+        if not (isinstance(scalar, float) or isinstance(scalar, int)):
             raise ValueError("Non-scalar divided!")
         x = self.x / scalar
         y = self.y / scalar
@@ -67,3 +67,11 @@ class Vector:
         y = self.z * other.x - self.x * other.z
         z = self.x * other.y - self.y * other.x
         return Vector(x, y, z)
+
+    def __eq__(self, other:"Vector"):
+        return (self.x == other.x
+                and self.y == other.y
+                and self.z == other.z)
+
+def find_angle(vector1:"Vector", vector2:"Vector"):
+    return math.acos(vector1.dot_product(vector2) / (vector1.length() * vector2.length()))

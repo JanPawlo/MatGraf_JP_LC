@@ -56,3 +56,14 @@ class Vector:
     
     def __str__(self):
         return f"[{self.x}, {self.y}, {self.z}]"
+    
+    def dot_product(self, other:"Vector"):
+        return (self.x * other.x +
+                self.y * other.y +
+                self.z * other.z)
+    
+    def cross_product(self, other:"Vector"):
+        x = self.y * other.z - self.z * other.y
+        y = self.z * other.x - self.x * other.z
+        z = self.x * other.y - self.y * other.x
+        return Vector(x, y, z)

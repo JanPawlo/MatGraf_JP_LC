@@ -114,7 +114,82 @@ class Matrix4x4:
                 new_matrix[i * 4 + j] = self.matrix[j][i]
 
         return Matrix4x4(new_matrix)
-
+    
+    
+    # a, b - wiersz, kolumna usuwane
+    def _macierz_dopelnienia(self, a:int, b:int):
+        out_row = 0
+        m_out = []
+        for i in range(len(self.matrix)):
+            if (i == a):
+                continue
+            else:
+                m_out.append([])
+            for j in range(len(self.matrix[0])):
+                if (j == b):
+                    continue
+                else:
+                    m_out[out_row].append(self.matrix[i][j])
+            out_row += 1
+        return m_out
+                    
+    
+    def _determinant3x3(self, m:list):
+        a, b, c = m[0][0], m[0][1], m[0][2]
+        d, e, f = m[1][0], m[1][1], m[1][2]
+        g, h, i = m[2][0], m[2][1], m[2][2]
+        return a*(e*i - f*h) - b*(d*i - f*g) + c*(d*h - e*g)
+    
+    
+    # dla macierzy 4x4
+    def determinant(self):
+        det = self.matrix[0][0] * self._determinant3x3(self._macierz_dopelnienia(0, 0))
+        det -= self.matrix[0][1] * self._determinant3x3(self._macierz_dopelnienia(0, 1))
+        det += self.matrix[0][2] * self._determinant3x3(self._macierz_dopelnienia(0, 2))
+        det -= self.matrix[0][3] * self._determinant3x3(self._macierz_dopelnienia(0, 3))
+        
+        return det
+    
+    
+    # wyznacznik macierzy dopelnienia ale ze znakiem
+    def _getCofactor(self, a:int, b:int):
+        det = self._determinant3x3(self._macierz_dopelnienia(a, b))  # Calculate determinant, not the matrix
+        
+        if ((a+b) % 2 == 0):
+            return det * 1
+        else:
+            return det * -1
+    
+    def calculateInverse(self):
+        determinant = self.determinant()
+        
+        ## macierz z det==0 nie moze miec odwrotnej
+        if ( abs(determinant) < 1e-6 ):
+            return False
+        
+        lista_dopelnien = []
+        
+        ## policz dopelnienia bez ukladania w macierz
+        for i in range(len(self.matrix)):
+            for j in range(len(self.matrix[0])):
+                lista_dopelnien.append(self._getCofactor(i, j))
+        
+        ## uluz w macierz uzywajac konstruktora
+        m_dopelnien_matrix = Matrix4x4(lista_dopelnien)
+        
+        ## transpozycja macierzy dopelnien
+        m_tran = m_dopelnien_matrix.transpose()
+        
+        ## podzielenie wszystkiego przez wyznacznik
+        inverse_det = 1.0 / determinant
+        
+        for i in range(len(m_tran.matrix)):
+            for j in range(len(m_tran.matrix[0])):
+                m_tran.matrix[i][j] = m_tran.matrix[i][j] * inverse_det
+        
+        return m_tran
+    
+    
     @staticmethod
     def set_scale(vector):
         new_matrix = Matrix4x4([])
@@ -202,5 +277,5 @@ class Matrix4x4:
         matrix.matrix[1][1] = matrix.matrix[0][0]
 
         return matrix
-
-
+    
+    

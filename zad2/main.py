@@ -11,6 +11,11 @@ if __name__ == '__main__':
                      5, 2, 3, 4,
                      5, 8, 1, 0,
                      10, 1, 3, 2])
+    
+    m1in = Matrix4x4([1, 2, 3, 0,
+                    0, 1, 4, 0,
+                    5, 6, 0, 0,
+                    0, 0, 0, 1])
 
     print("Macierze")
     print(matrix1, end='\n\n')
@@ -54,3 +59,9 @@ if __name__ == '__main__':
     # rotacja wektora
     print("Rotacja wektora [1, 0, 0, 1] o 90 stopni w osi Y")
     print(Matrix4x4.set_rotation_y(90) * Vector(1, 0, 0), end='\n\n')
+    
+    print("Odwrocenie macierzy:")
+    print(m1in, "\n")
+    print("Efekt:")
+    print(m1in.calculateInverse())
+    

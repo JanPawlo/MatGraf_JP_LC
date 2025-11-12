@@ -1,7 +1,6 @@
 import math
 
 
-
 class Vector:
     
     def __init__(self, x:float, y:float, z:float):
@@ -72,6 +71,29 @@ class Vector:
         return (self.x == other.x
                 and self.y == other.y
                 and self.z == other.z)
+    
+    # punkt x,y,z
+    # float w stopniach
+    def rotate_point(self, angle:float, axis:"Vector") -> "Vector":
+        from quaternion import Quaternion
 
+        radians = degrees_to_radians(angle)
+        
+        q = Quaternion(math.cos((radians/2)), axis/axis.length() * math.sin((radians/2)))
+        q_odwr = Quaternion(math.cos((radians/2)), axis/axis.length() * math.sin((radians/2)) * -1)
+        
+        q_self = Quaternion(0, self)
+        
+        q_result = q * q_self * q_odwr
+        
+        return q_result.vector
+    
+    
 def find_angle(vector1:"Vector", vector2:"Vector"):
     return math.acos(vector1.dot_product(vector2) / (vector1.length() * vector2.length()))
+
+def degrees_to_radians(degrees:float):
+    return degrees * math.pi /180
+
+def radians_to_degrees(radians:float):
+    return radians * 180 / math.pi

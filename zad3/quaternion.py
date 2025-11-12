@@ -1,5 +1,7 @@
 import vector
 from vector import Vector
+import math
+
 
 
 class Quaternion:
@@ -27,5 +29,18 @@ class Quaternion:
         result_vector = (other.vector * self.a * -1.0 + self.vector * other.a - self.vector.cross_product(other.vector)) * (1.0 / divider)
         return Quaternion(result_scalar, result_vector)
 
+    def __eq__(self, other):
+        if not isinstance(other, Quaternion):
+            return False
+        return (self.a == other.a and 
+            self.vector.x == other.vector.x and
+            self.vector.y == other.vector.y and
+            self.vector.z == other.vector.z)
+
+        
     def __str__(self):
         return f"({str(self.a)}, {str(self.vector)})"
+    
+    
+def degrees_to_radians(degrees:float):
+    return degrees * math.pi /180

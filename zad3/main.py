@@ -7,4 +7,5 @@ if __name__ == '__main__':
     print(q1 + q2)
     print(q1 - q2)
     print(q1 * q2)
+    print(q1 / q2)
 

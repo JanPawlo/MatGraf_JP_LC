@@ -86,7 +86,7 @@ class Matrix4x4:
             new_x = self.matrix[0][0] * other.x + self.matrix[0][1] * other.y + self.matrix[0][2] * other.z + self.matrix[0][3]
             new_y = self.matrix[1][0] * other.x + self.matrix[1][1] * other.y + self.matrix[1][2] * other.z + self.matrix[1][3]
             new_z = self.matrix[2][0] * other.x + self.matrix[2][1] * other.y + self.matrix[2][2] * other.z + self.matrix[2][3]
-            print(self.matrix[3][0] * other.x + self.matrix[3][1] * other.y + self.matrix[3][2] * other.z + self.matrix[3][3])
+            #print(self.matrix[3][0] * other.x + self.matrix[3][1] * other.y + self.matrix[3][2] * other.z + self.matrix[3][3])
             return Vector(new_x, new_y, new_z)
 
         else:

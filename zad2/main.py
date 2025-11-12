@@ -44,8 +44,12 @@ if __name__ == '__main__':
     print(matrix1.transpose(), end='\n\n')
 
     # mnozenie przez wektor czyt. uwaga w __mul__
+    matrix3 = Matrix4x4([1, 2, 1, 0,
+                         2, 1, 2, 0,
+                         1, 2, 1, 0,
+                         2, 1, 2, 1])
     print("Mnożenie przez wektor")
-    print(matrix1 * Vector(1, 2, 3), end='\n\n')
+    print(matrix3 * Vector(1, 2, 3), end='\n\n')
 
     # rotacja wektora
     print("Rotacja wektora [1, 0, 0, 1] o 90 stopni w osi Y")

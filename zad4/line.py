@@ -1,4 +1,7 @@
+import math
+
 from vector import Vector
+from vector import find_angle
 
 class Line(object):
     def __init__(self, point: "Vector", vector: "Vector"):
@@ -10,13 +13,23 @@ class Line(object):
 
     def line_and_line_cross(self, other: "Line"):
         v1_v2_cross = self.vector.cross_product(other.vector)
-        t1 = (other.point - self.point).cross_product(other.vector).dot_product(v1_v2_cross)
+        p2_p1_diff = other.point - self.point
 
-        t1_norm = (self.vector.cross_product(other.vector)).length()
-        t1 /= t1_norm * t1_norm
+        t_norm = v1_v2_cross.length()
+        t_norm *= t_norm
 
-        t2 = (other.point - self.point).cross_product(self.vector).dot_product(v1_v2_cross)
-        t2_norm = (self.vector.cross_product(other.vector)).length()
-        t2 /= t2_norm * t2_norm
+        t1_cross = other.vector.cross_product(v1_v2_cross)
+
+        t1 = p2_p1_diff.dot_product(t1_cross) / t_norm
+
+        t2_cross = self.vector.cross_product(v1_v2_cross)
+
+        t2 = p2_p1_diff.dot_product(t2_cross) / t_norm
 
         return t1, t2
+
+    def angle(self, other):
+        return radians_to_degrees(find_angle(self.vector, other.vector))
+
+def radians_to_degrees(radians):
+    return radians * 180 / math.pi

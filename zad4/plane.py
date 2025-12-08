@@ -20,6 +20,9 @@ class Plane:
         # else:
         #     raise ValueError("Plaszczyzna 0,0,0 to zadna plaszczyzna!")
 
+    def contains_point(self, P, eps=1e-9):
+        return abs(self.normal.dot_product(P) - self.d) < eps
+
         
     
 

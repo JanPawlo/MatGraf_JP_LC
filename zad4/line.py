@@ -55,9 +55,39 @@ class Segment(object):
         AB = B - A
         AC = C - A
 
+        # punkty sa wspoliniowe wiec nie daloby sie stworzyc plaszczyzny
         normal = AB.cross_product(AC)
+        if normal.length() == 0:
+            return None
 
         plane = Plane(normal.x, normal.y, normal.z, normal.dot_product(A))
+
+        if not plane.contains_point(D):
+            return None
+
+        def check_side(P0, P1, Q1, Q2):
+            v = P1 - P0
+            n = v.cross_product(normal)
+
+            s1 = (Q1 - P0).dot_product(n)
+            s2 = (Q2 - P0).dot_product(n)
+
+            if s1 == 0 or s2 == 0:
+                return 0
+
+            return 1 if s1 * s2 < 0 else -1
+
+        # sprawdzenie AB względem CD
+        if check_side(C, D, A, B) == -1:
+            return None
+
+        # sprawdzenie CD względem AB
+        if check_side(A, B, C, D) == -1:
+            return None
+
+        return self.line.line_and_line_cross(other.line)
+
+
 
 
 

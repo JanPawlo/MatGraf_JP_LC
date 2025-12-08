@@ -90,6 +90,5 @@ class Segment(object):
 
 
 
-
 def radians_to_degrees(radians):
     return radians * 180 / math.pi

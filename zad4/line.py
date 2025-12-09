@@ -37,6 +37,12 @@ class Line(object):
 
     def angle(self, other):
         return radians_to_degrees(find_angle(self.vector, other.vector))
+    
+    def __str__(self):
+        return ("pkt: " + "(" + str(self.point.x) + "," + str(self.point.y) + "," + str(self.point.z) + ") " +
+                "vec: " + "(" +str(self.vector.x) + "," + str(self.vector.y) + "," + str(self.vector.z) + ") ")
+
+    
 
 class Segment(object):
     def __init__(self, endpoint1: "Vector", endpoint2: "Vector"):
@@ -86,7 +92,6 @@ class Segment(object):
             return None
 
         return self.line.line_and_line_cross(other.line)
-
 
 
 

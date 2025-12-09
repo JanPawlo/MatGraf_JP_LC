@@ -2,6 +2,8 @@ from math import sqrt
 from sphere import Sphere
 from vector import Vector
 from line import Line, Segment
+from plane import Plane
+from operation_but_better import intersection_line_plane, angle_line_plane, intersection_plane_plane, angle_plane_plane
 
 if __name__ == '__main__':
     # zle przepisalem linie wczesniej x d
@@ -23,3 +25,31 @@ if __name__ == '__main__':
 
     point1, point2 = sphere2.sphere_and_line_cross(line4)
     print(str(point1) + " " + str(point2))
+    
+    
+    
+    # zadanie 3:
+    linia3 = Line(Vector(-2, 2, -1), Vector(3, -1, 2))
+    plaszczyzna3 = Plane(2, 3, 3, -8)
+    print("Zadanie 3:")
+    print("pkt. przeciecia prostej z plaszczyzna:",
+          intersection_line_plane(linia3, plaszczyzna3))
+    
+    # zadanie 4:
+    print("Zadanie 4:")
+    print("kat przeciecia prostej z plaszczyzna:",
+          angle_line_plane(linia3, plaszczyzna3))
+
+    # zadanie 5:
+    pl5a = Plane(2, -1, 1, -8)
+    pl5b = Plane(4, 3, 1, 14)
+    
+        
+    print("Zadanie 5:")
+    print("prosta przeciecia plaszczyzn:",
+          intersection_plane_plane(pl5a, pl5b))
+    
+    print("Zadanie 6:")
+    print("kat przeciecia plaszczyzn:", 
+          angle_plane_plane(pl5a, pl5b))
+        

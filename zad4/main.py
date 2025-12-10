@@ -50,7 +50,7 @@ if __name__ == '__main__':
           segment1.segment_and_segment_cross(segment2))
 
     sphere1 = Sphere(sqrt(26), Vector(0, 0, 0))
-    line3 = Line(Vector(3, 1, 2), Vector(5, 3, -4) - Vector(3, -1, -2))
+    line3 = Line(Vector(3, -1, -2), Vector(5, 3, -4) - Vector(3, -1, -2))
     point1, point2 = sphere1.sphere_and_line_cross(line3)
     print("Zadanie 8:")
     print("pkt. przeciecia sfery i prostej: " + str(point1) + " " + str(point2))

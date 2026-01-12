@@ -1,5 +1,6 @@
 from vector import Vector
 from line import Line
+from cube import Cube
 
 class Camera(object):
     def __init__(self, width, height, starting_point: "Vector", distance: "Vector"):
@@ -7,6 +8,8 @@ class Camera(object):
         self.height = height
         self.point = starting_point
         self.distance = distance
+        self.rays = []
+        self.image = []
 
     def generate_ray(self, x_scalar, y_scalar):
         if x_scalar > 1 or x_scalar < -1:
@@ -17,8 +20,24 @@ class Camera(object):
         return ray
 
     def generate_ray_list(self, x_pixels, y_pixels):
-        ray_list = []
+        self.rays = []
         for x in range(x_pixels):
             for y in range(y_pixels):
-                ray_list.append(self.generate_ray(1 - x / (x_pixels / 2) , 1 - y / (y_pixels / 2 )))
-        return ray_list
+                self.rays.append(self.generate_ray(1 - x / (x_pixels / 2) , 1 - y / (y_pixels / 2 )))
+        return self.rays.copy()
+
+    def calculate_cube_cross(self, cube: "Cube"):
+        self.generate_ray_list()
+        self.image = []
+        for ray in self.rays:
+            self.image.append(cube.calculate_ray_cross(ray))
+
+
+    def print_image(self):
+        for i in range(len(self.image)):
+            if i % self.width == 0:
+                print()
+            if self.image[i]:
+                print("#")
+            else:
+                print("0")

@@ -17,7 +17,14 @@ class Plane:
         return abs(self.normal.dot_product(P) + self.d) < eps
 
         
-    
-
+    # return intersection point and distance (t)
+    def intersect_line(self, line):
+        denom = self.normal.dot_product(line.vector)
         
+        if abs(denom) < 1e-12:  # Line is parallel to plane
+            return None, None
         
+        #potencjalnie pomieszane znaki(?)
+        t = (self.d - self.normal.dot_product(line.point)) / denom
+        point = line.calculate_point(t)
+        return point, t

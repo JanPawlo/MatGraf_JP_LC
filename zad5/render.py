@@ -23,8 +23,6 @@ def render_scene():
     while True:
         output_buffer = []
 
-        # Przygotowanie obrotu (symulacja obrotu obiektu poprzez odwrotny obrót promienia)
-
         # Pętla po pikselach (Y, X)
         for y in range(HEIGHT):
             row_str = ""
